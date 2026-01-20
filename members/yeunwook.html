@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeunwook Kim</title>
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <style>
+        :root {
+            --bg: #f0f0f0;
+            --main: #ffcc00;
+            --accent: #ff6bdf;
+            --border: #000000;
+            --shadow: 5px 5px 0px #000;
+            --font-pixel: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #000;
+            font-family: var(--font-pixel);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .box {
+            border: 4px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            background: white;
+        }
+
+        .profile-section {
+            background: rgba(255, 204, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .profile-section { grid-template-columns: 1fr; }
+        }
+
+        h1 { margin: 0; font-size: 38px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .grid-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .stat-card {
+            border: 4px solid var(--border);
+            padding: 10px;
+            box-shadow: 4px 4px 0px #000;
+            font-size: 12px;
+            background: white;
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn {
+            border: 4px solid var(--border);
+            padding: 12px 20px;
+            background: var(--accent);
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: black;
+            box-shadow: 4px 4px 0px #000;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0px #000; }
+        .btn.white { background: white; }
+
+        .tab-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tab-btn {
+            border: 3px solid var(--border);
+            padding: 8px 16px;
+            background: var(--bg);
+            box-shadow: 4px 4px 0px #000;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+        }
+        .tab-btn.active { background: var(--accent); }
+
+        .panel-content {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .list-item {
+            border: 3px solid var(--border);
+            background: rgba(255, 204, 0, 0.1);
+            padding: 12px;
+            box-shadow: 4px 4px 0px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="box profile-section">
+            <div>
+                <h1>Yeunwook Kim</h1>
+                <p>Hi, I'm a Mathematics-Computer Science senior at UC San Diego, building web3 experiences for everyone.</p>
+                
+                <div class="grid-stats">
+                    <div class="stat-card">
+                        <b>CURRENT FOCUS</b><br>Web3 with scalable infrastructure
+                    </div>
+                    <div class="stat-card">
+                        <b>LOCATION</b><br>San Diego, California
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a href="https://yeunwook.kim" class="btn">View Website</a>
+                    <a href="https://miramarket.org" class="btn white">Current Project</a>
+                </div>
+            </div>
+
+            <div class="box" style="font-size: 13px; box-shadow: 4px 4px 0 #000;">
+                <p style="text-align:center; font-weight:bold; border-bottom: 2px solid #000;">VITALS</p>
+                <p><b>Discipline:</b> Math-CS · UCSD ('26)</p>
+                <p><b>Focus:</b> Web3 · Cloud · AI</p>
+                <p><b>Coffee:</b> Light roast · 93°C · V60</p>
+            </div>
+        </section>
+
+        <section class="box">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showPanel('now', this)">Now Playing</button>
+                <button class="tab-btn" onclick="showPanel('stack', this)">Toolkit</button>
+                <button class="tab-btn" onclick="showPanel('fun', this)">Side Quests</button>
+            </div>
+
+            <div id="panel-container" class="panel-content">
+                </div>
+        </section>
+    </div>
+
+    <script>
+        const panelData = {
+            now: [
+                "nft work certification with custom ERC1151 multisig architecture",
+                "optimizing cloud infrastructure for efficient deployments",
+                "dialing in light-roast pour overs for nightly build sessions"
+            ],
+            stack: [
+                "TypeScript · React · Vite for rapid web experiences",
+                "Solidity · Python · Java · C++ for cross-stack problem solving",
+                "AWS (Lambda, EC2, RDS) · Docker · Kubernetes"
+            ],
+            fun: [
+                "moshing at punk rock gigs!!!",
+                "binge gaming at arcades",
+                "tracking coffee recipes like patch notes"
+            ]
+        };
+        // Function to switch tabs
+        function showPanel(key, el) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+
+            // Update content
+            const container = document.getElementById('panel-container');
+            container.innerHTML = panelData[key].map(text => `
+                <div class="list-item">${text}</div>
+            `).join('');
+        }
+
+        // Initialize first panel
+        showPanel('now', document.querySelector('.tab-btn'));
+    </script>
+</body>
+</html>
