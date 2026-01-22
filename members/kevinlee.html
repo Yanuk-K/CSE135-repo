@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kevin Lee | CSE 135</title>
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f6f8;
+      }
+
+      .container {
+        display: flex;
+        gap: 24px;
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .box {
+        background: #ffffff;
+        padding: 28px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        flex: 1;
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 22px;
+      }
+
+      p {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 16px;
+        background-color: #2563eb;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: background-color 0.2s ease;
+      }
+
+      .button:hover {
+        background-color: #1d4ed8;
+      }
+
+      .hobby-buttons button {
+        margin-right: 8px;
+        margin-bottom: 8px;
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        background-color: #f9fafb;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      .hobby-buttons button:hover {
+        background-color: #e5e7eb;
+      }
+
+      .hobby-text {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #444;
+        min-height: 18px;
+      }
+
+      .time {
+        margin-top: 14px;
+        font-size: 12px;
+        color: #777;
+      }
+
+      @media (max-width: 700px) {
+        .container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- LEFT BOX -->
+      <div class="box">
+        <h1>Kevin Lee</h1>
+        <p>
+          Hi, I’m a Computer Science student at UC San Diego aspiring to become a
+          software engineer.
+        </p>
+
+        <a
+          class="button"
+          href="https://kevin-portfolio-git-master-kevinlee1989s-projects.vercel.app"
+          target="_blank"
+          rel="noopener"
+        >
+          View My Portfolio
+        </a>
+
+        <div class="time" id="time"></div>
+      </div>
+
+      <!-- RIGHT BOX -->
+      <div class="box">
+        <h1>Hobbies</h1>
+
+        <div class="hobby-buttons">
+          <button onclick="showHobby('golf')">Golf</button>
+          <button onclick="showHobby('hiking')">Hiking</button>
+          <button onclick="showHobby('workout')">Workout</button>
+        </div>
+
+        <div class="hobby-text" id="hobbyText">
+          Click a hobby to learn more.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showHobby(hobby) {
+        const text = document.getElementById("hobbyText");
+
+        if (hobby === "golf") {
+          text.textContent =
+            "Golf helps me focus, stay patient, and enjoy being outdoors.";
+        } else if (hobby === "hiking") {
+          text.textContent =
+            "I enjoy hiking as a way to explore nature and clear my mind.";
+        } else if (hobby === "workout") {
+          text.textContent =
+            "Working out helps me stay disciplined and energized.";
+        }
+      }
+
+      document.getElementById("time").textContent =
+        "Loaded at " + new Date().toLocaleString();
+    </script>
+  </body>
+</html>
