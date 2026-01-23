@@ -42,7 +42,7 @@
             background: white;
         }
 
-        .profile-section {
+        .profile-div {
             background: rgba(255, 204, 0, 0.1);
             display: grid;
             grid-template-columns: 1fr 220px;
@@ -50,7 +50,7 @@
         }
 
         @media (max-width: 600px) {
-            .profile-section { grid-template-columns: 1fr; }
+            .profile-div { grid-template-columns: 1fr; }
         }
 
         h1 { margin: 0; font-size: 38px; text-transform: uppercase; letter-spacing: 2px; }
@@ -115,7 +115,7 @@
 <body>
 
     <div class="container">
-        <section class="box profile-section">
+        <div class="box profile-div">
             <div>
                 <h1>Yeunwook Kim</h1>
                 <p>Hi, I'm a Mathematics-Computer Science senior at UC San Diego, building web3 experiences for everyone.</p>
@@ -141,9 +141,9 @@
                 <p><b>Focus:</b> Web3 · Cloud · AI</p>
                 <p><b>Coffee:</b> Light roast · 93°C · V60</p>
             </div>
-        </section>
+        </div>
 
-        <section class="box">
+        <div class="box">
             <div class="tab-buttons">
                 <button class="tab-btn active" onclick="showPanel('now', this)">Now Playing</button>
                 <button class="tab-btn" onclick="showPanel('stack', this)">Toolkit</button>
@@ -152,7 +152,7 @@
 
             <div id="panel-container" class="panel-content">
                 </div>
-        </section>
+        </div>
     </div>
 
     <script>
@@ -189,6 +189,6 @@
         // Initialize first panel
         showPanel('now', document.querySelector('.tab-btn'));
     </script>
+    <footer><p>This page was taken from my personal website and modified for CSE135</p></footer>
 </body>
-<footer><p>This page was taken from my personal website and modified for CSE135</p></footer>
 </html>
