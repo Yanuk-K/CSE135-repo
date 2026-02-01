@@ -11,7 +11,7 @@ print "</head>";
 print "<body>";
 
 print "<h1 align=center>Hello HTML World</h1><hr/>";
-print "<h3>Perl Hello World by Yeunwook and Kevin</h3>"
+print "<h3>Perl Hello World by Yeunwook and Kevin</h3>";
 print "<p>Hello World</p>";
 print "<p>This page was generated with the Perl programming langauge</p>";
 
