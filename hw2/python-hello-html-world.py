@@ -20,7 +20,7 @@ print("<p>This page was generated with the Python programming language</p>")
 current_time = time.ctime()
 print(f"<p>This program was generated at: {current_time}</p>")
 
-address = os.environ.get('REMOTE_ADDR', 'Unknown')
+address = os.environ.get('REMOTE_ADDR')
 print(f"<p>Your current IP Address is: {address}</p>")
 
 print("</body>")
