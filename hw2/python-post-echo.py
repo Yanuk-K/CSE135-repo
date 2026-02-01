@@ -29,7 +29,8 @@ if content_length:
 
     print("</ul>")
 else:
-    print("<p>No POST data received.</p>")
+    print("<b>Message Body:</b><br />")
+    print("<ul>")
 
 # Print the HTML file bottom
 print("</body></html>")
