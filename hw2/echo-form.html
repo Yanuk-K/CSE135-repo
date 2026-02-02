@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echo Form</title>
+</head>
+<body>
+  <h1>Echo Form Test</h1>
+
+  <form id="echo-form" action="/hw2/python-general-echo.py" method="post">
+    <label>
+      Language endpoint
+      <select id="language">
+        <option value="perl">Perl (perl-general-echo.pl)</option>
+        <option value="perl_get">Perl (perl-get-echo.pl)</option>
+        <option value="perl_post">Perl (perl-post-echo.pl)</option>
+        <option value="python">Python (python-general-echo.py)</option>
+        <option value="python_get">Python (python-get-echo.py)</option>
+        <option value="python_post">Python (python-post-echo.py)</option>
+        <option value="php">PHP (php-general-echo.php)</option>
+        <option value="php_get">PHP (php-get-echo.php)</option>
+        <option value="php_post">PHP (php-post-echo.php)</option>
+        <option value="cpp">C++ (general-echo-cpp.cgi)</option>
+        <option value="cpp_get">C++ (get-echo-cpp.cgi)</option>
+        <option value="cpp_post">C++ (post-echo-cpp.cgi)</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      Method
+      <select id="method">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>DELETE</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      Encoding
+      <select id="encoding">
+        <option value="application/x-www-form-urlencoded">x-www-form-urlencoded</option>
+        <option value="application/json">application/json</option>
+      </select>
+    </label>
+    <br>
+
+    <label>
+      Name
+      <input type="text" name="name" value="Echo Explorer" required>
+    </label>
+    <br>
+    <label>
+      Message
+      <textarea name="message">Testing echo response</textarea>
+    </label>
+    <br>
+    <label>
+      Session
+      <input type="text" name="session" value="lab-135">
+    </label>
+    <br>
+    <label>
+      Mood
+      <select name="mood">
+        <option>curious</option>
+        <option>focused</option>
+        <option>sleepy</option>
+        <option>chaotic</option>
+      </select>
+    </label>
+    <br><br>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <h2>Preview</h2>
+  <pre id="request-preview">(preview)</pre>
+
+  <h2>Response</h2>
+  <pre id="response-output">(response will appear here)</pre>
+
+  <script>
+    const form = document.getElementById("echo-form");
+    const languageSelect = document.getElementById("language");
+    const methodSelect = document.getElementById("method");
+    const encodingSelect = document.getElementById("encoding");
+    const requestPreview = document.getElementById("request-preview");
+    const responseOutput = document.getElementById("response-output");
+
+    const endpoints = {
+      perl: "/hw2/perl-general-echo.pl",
+      perl_get: "/hw2/perl-get-echo.pl",
+      perl_post: "/hw2/perl-post-echo.pl",
+      python: "/hw2/python-general-echo.py",
+      python_get: "/hw2/python-get-echo.py",
+      python_post: "/hw2/python-post-echo.py",
+      php: "/hw2/php-general-echo.php",
+      php_get: "/hw2/php-get-echo.php",
+      php_post: "/hw2/php-post-echo.php",
+      cpp: "/hw2/general-echo-cpp.cgi",
+      cpp_get: "/hw2/get-echo-cpp.cgi",
+      cpp_post: "/hw2/post-echo-cpp.cgi"
+    };
+
+    function serializeFormData() {
+      const data = new FormData(form);
+      const payload = {};
+      data.forEach((value, key) => {
+        if (payload[key]) {
+          payload[key] = [].concat(payload[key], value);
+        } else {
+          payload[key] = value;
+        }
+      });
+      return payload;
+    }
+
+    function buildPreview() {
+      const endpoint = endpoints[languageSelect.value];
+      const method = methodSelect.value;
+      const encoding = encodingSelect.value;
+      const payload = serializeFormData();
+      const bodyPreview = encoding === "application/json"
+        ? JSON.stringify(payload, null, 2)
+        : new URLSearchParams(payload).toString();
+
+      const lines = [
+        `${method} ${endpoint}`,
+        `Content-Type: ${encoding}`,
+        "",
+        method === "GET" ? `?${bodyPreview}` : bodyPreview
+      ];
+
+      requestPreview.textContent = lines.join("\n");
+    }
+
+    async function submitRequest(event) {
+      event.preventDefault();
+      const endpoint = endpoints[languageSelect.value];
+      const method = methodSelect.value;
+      const encoding = encodingSelect.value;
+      const payload = serializeFormData();
+
+      let url = endpoint;
+      let body;
+      const headers = {};
+
+      if (encoding === "application/json") {
+        body = JSON.stringify(payload);
+        headers["Content-Type"] = "application/json";
+      } else {
+        const params = new URLSearchParams(payload);
+        body = params.toString();
+        headers["Content-Type"] = "application/x-www-form-urlencoded";
+      }
+
+      if (method === "GET") {
+        const query = body ? `?${body}` : "";
+        url = `${endpoint}${query}`;
+        body = undefined;
+      }
+
+      try {
+        responseOutput.textContent = "Sending request...";
+        const response = await fetch(url, {
+          method,
+          headers,
+          body: method === "GET" ? undefined : body
+        });
+        const text = await response.text();
+        responseOutput.textContent = text;
+      } catch (error) {
+        responseOutput.textContent = `Request failed: ${error}`;
+      }
+    }
+
+    [languageSelect, methodSelect, encodingSelect].forEach((select) => {
+      select.addEventListener("change", buildPreview);
+    });
+
+    buildPreview();
+    form.addEventListener("submit", submitRequest);
+  </script>
+</body>
+</html>
