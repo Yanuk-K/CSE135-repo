@@ -16,6 +16,7 @@ header("Content-Type: text/html");
     <b>Message Body:</b><br />
 
     <?php
+    // Using print logic to actually show on the page
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<ul>";
         foreach ($_POST as $key => $value) {

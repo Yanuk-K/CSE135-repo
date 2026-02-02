@@ -3,14 +3,14 @@
 header("Cache-Control: no-cache");
 header("Content-Type: text/html");
 
-// Basic request info
+// Basic request
 $method   = $_SERVER['REQUEST_METHOD'] ?? 'N/A';
 $protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'N/A';
-$query    = $_SERVER['QUERY_STRING'] ?? '';
+$q    = $_SERVER['QUERY_STRING'] ?? '';
 $ip       = $_SERVER['REMOTE_ADDR'] ?? 'N/A';
-$agent    = $_SERVER['HTTP_USER_AGENT'] ?? 'N/A';
+$a   = $_SERVER['HTTP_USER_AGENT'] ?? 'N/A';
 
-// Read raw body (works for POST, PUT, DELETE)
+// Reading the raw data for all the method.
 $rawBody = file_get_contents("php://input");
 ?>
 
@@ -25,8 +25,8 @@ $rawBody = file_get_contents("php://input");
 
     <p><b>HTTP Protocol:</b> <?= htmlspecialchars($protocol) ?></p>
     <p><b>HTTP Method:</b> <?= htmlspecialchars($method) ?></p>
-    <p><b>Query String:</b> <?= htmlspecialchars($query) ?></p>
-    <p><b>User Agent:</b> <?= htmlspecialchars($agent) ?></p>
+    <p><b>Query String:</b> <?= htmlspecialchars($q) ?></p>
+    <p><b>User Agent:</b> <?= htmlspecialchars($a) ?></p>
     <p><b>Your IP Address:</b> <?= htmlspecialchars($ip) ?></p>
 
     <hr>
