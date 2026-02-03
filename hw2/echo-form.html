@@ -80,6 +80,8 @@
 
   <h2>Response</h2>
   <pre id="response-output">(response will appear here)</pre>
+  <h2>Message Body (extracted)</h2>
+  <pre id="message-body-output">(message body will appear here)</pre>
 
   <script>
     const form = document.getElementById("echo-form");
@@ -88,6 +90,7 @@
     const encodingSelect = document.getElementById("encoding");
     const requestPreview = document.getElementById("request-preview");
     const responseOutput = document.getElementById("response-output");
+    const messageBodyOutput = document.getElementById("message-body-output");
 
     const endpoints = {
       perl: "/hw2/perl-general-echo.pl",
@@ -162,8 +165,7 @@
         body = undefined;
       }
 
-      try {
-        responseOutput.textContent = "Sending request...";
+      responseOutput.textContent = "Sending request...";
         const response = await fetch(url, {
           method,
           headers,
@@ -171,9 +173,8 @@
         });
         const text = await response.text();
         responseOutput.textContent = text;
-      } catch (error) {
-        responseOutput.textContent = `Request failed: ${error}`;
-      }
+        const bodyMatch = text.match(/Message Body:<\\/b>\\s*([^<]*)/i);
+        messageBodyOutput.textContent = bodyMatch ? bodyMatch[1] : "(message body not found in response)";
     }
 
     [languageSelect, methodSelect, encodingSelect].forEach((select) => {
