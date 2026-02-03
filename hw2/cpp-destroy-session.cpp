@@ -77,7 +77,7 @@ int main() {
     std::cout << "</head>\n";
     std::cout << "<body>\n";
     std::cout << "<h1>Session Destroyed</h1>\n";
-    std::cout << "<a href=\"/cpp-cgiform.html\">Back to the C++ CGI Form</a><br />\n";
+    std::cout << "<a href=\"/hw2/cpp-cgiform.html\">Back to the C++ CGI Form</a><br />\n";
     std::cout << "<a href=\"/hw2/cpp-sessions-1.cgi\">Back to Page 1</a><br />\n";
     std::cout << "<a href=\"/hw2/cpp-sessions-2.cgi\">Back to Page 2</a>\n";
     std::cout << "</body>\n";
