@@ -8,22 +8,22 @@
 <body>
   <h1>Echo Form Test</h1>
 
-  <form id="echo-form" action="/hw2/python-general-echo.py" method="post" enctype="application/x-www-form-urlencoded">
+  <form id="echo-form" action="/hw2/general-echo-python.py" method="post" enctype="application/x-www-form-urlencoded">
     <label>
       Language endpoint
       <select id="language">
         <option value="perl">Perl (perl-general-echo.pl)</option>
         <option value="perl_get">Perl (perl-get-echo.pl)</option>
         <option value="perl_post">Perl (perl-post-echo.pl)</option>
-        <option value="python">Python (python-general-echo.py)</option>
-        <option value="python_get">Python (python-get-echo.py)</option>
-        <option value="python_post">Python (python-post-echo.py)</option>
-        <option value="php">PHP (php-general-echo.php)</option>
-        <option value="php_get">PHP (php-get-echo.php)</option>
-        <option value="php_post">PHP (php-post-echo.php)</option>
-        <option value="cpp">C++ (cpp-general-echo.cgi)</option>
-        <option value="cpp_get">C++ (cpp-get-echo.cgi)</option>
-        <option value="cpp_post">C++ (cpp-post-echo.cgi)</option>
+        <option value="python">Python (general-echo-python.py)</option>
+        <option value="python_get">Python (get-echo-python.py)</option>
+        <option value="python_post">Python (post-echo-python.py)</option>
+        <option value="php">PHP (general-echo-php.php)</option>
+        <option value="php_get">PHP (get-echo-php.php)</option>
+        <option value="php_post">PHP (post-echo-php.php)</option>
+        <option value="cpp">C++ (general-echo-cpp.cgi)</option>
+        <option value="cpp_get">C++ (get-echo-cpp.cgi)</option>
+        <option value="cpp_post">C++ (post-echo-cpp.cgi)</option>
       </select>
     </label>
     <br>
@@ -76,22 +76,22 @@
   <h2>Non-JS Version (manual submit)</h2>
   <p>Use this when JavaScript is off. Supports GET/POST with x-www-form-urlencoded only.</p>
 
-  <form id="nojs-form" action="/hw2/python-general-echo.py" method="post" enctype="application/x-www-form-urlencoded" target="nojs-response">
+  <form id="nojs-form" action="/hw2/general-echo-python.py" method="post" enctype="application/x-www-form-urlencoded" target="nojs-response">
     <label>
       Language endpoint
       <select id="nojs-endpoint" name="endpoint">
         <option value="/hw2/perl-general-echo.pl">Perl (perl-general-echo.pl)</option>
         <option value="/hw2/perl-get-echo.pl">Perl (perl-get-echo.pl)</option>
         <option value="/hw2/perl-post-echo.pl">Perl (perl-post-echo.pl)</option>
-        <option value="/hw2/python-general-echo.py">Python (python-general-echo.py)</option>
-        <option value="/hw2/python-get-echo.py">Python (python-get-echo.py)</option>
-        <option value="/hw2/python-post-echo.py">Python (python-post-echo.py)</option>
-        <option value="/hw2/php-general-echo.php">PHP (php-general-echo.php)</option>
-        <option value="/hw2/php-get-echo.php">PHP (php-get-echo.php)</option>
-        <option value="/hw2/php-post-echo.php">PHP (php-post-echo.php)</option>
-        <option value="/hw2/cpp-general-echo.cgi">C++ (cpp-general-echo.cgi)</option>
-        <option value="/hw2/cpp-get-echo.cgi">C++ (cpp-get-echo.cgi)</option>
-        <option value="/hw2/cpp-post-echo.cgi">C++ (cpp-post-echo.cgi)</option>
+        <option value="/hw2/general-echo-python.py">Python (general-echo-python.py)</option>
+        <option value="/hw2/get-echo-python.py">Python (get-echo-python.py)</option>
+        <option value="/hw2/post-echo-python.py">Python (post-echo-python.py)</option>
+        <option value="/hw2/general-echo-php.php">PHP (general-echo-php.php)</option>
+        <option value="/hw2/get-echo-php.php">PHP (get-echo-php.php)</option>
+        <option value="/hw2/post-echo-php.php">PHP (post-echo-php.php)</option>
+        <option value="/hw2/general-echo-cpp.cgi">C++ (general-echo-cpp.cgi)</option>
+        <option value="/hw2/get-echo-cpp.cgi">C++ (get-echo-cpp.cgi)</option>
+        <option value="/hw2/post-echo-cpp.cgi">C++ (post-echo-cpp.cgi)</option>
       </select>
     </label>
     <br>
@@ -136,15 +136,15 @@
       perl: "/hw2/perl-general-echo.pl",
       perl_get: "/hw2/perl-get-echo.pl",
       perl_post: "/hw2/perl-post-echo.pl",
-      python: "/hw2/python-general-echo.py",
-      python_get: "/hw2/python-get-echo.py",
-      python_post: "/hw2/python-post-echo.py",
-      php: "/hw2/php-general-echo.php",
-      php_get: "/hw2/php-get-echo.php",
-      php_post: "/hw2/php-post-echo.php",
-      cpp: "/hw2/cpp-general-echo.cgi",
-      cpp_get: "/hw2/cpp-get-echo.cgi",
-      cpp_post: "/hw2/cpp-post-echo.cgi"
+      python: "/hw2/general-echo-python.py",
+      python_get: "/hw2/get-echo-python.py",
+      python_post: "/hw2/post-echo-python.py",
+      php: "/hw2/general-echo-php.php",
+      php_get: "/hw2/get-echo-php.php",
+      php_post: "/hw2/post-echo-php.php",
+      cpp: "/hw2/general-echo-cpp.cgi",
+      cpp_get: "/hw2/get-echo-cpp.cgi",
+      cpp_post: "/hw2/post-echo-cpp.cgi"
     };
 
     function serializeFormData() {

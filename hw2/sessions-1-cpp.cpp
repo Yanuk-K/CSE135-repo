@@ -189,9 +189,9 @@ int main() {
         std::cout << "<p><b>Name:</b> You do not have a name set</p>\n";
     }
     std::cout << "<br/><br/>\n";
-    std::cout << "<a href=\"/hw2/cpp-sessions-2.cgi\">Session Page 2</a><br/>\n";
-    std::cout << "<a href=\"/hw2/cpp-cgiform.html\">C++ CGI Form</a><br />\n";
-    std::cout << "<form style=\"margin-top:30px\" action=\"/hw2/cpp-destroy-session.cgi\" method=\"get\">\n";
+    std::cout << "<a href=\"/hw2/sessions-2-cpp.cgi\">Session Page 2</a><br/>\n";
+    std::cout << "<a href=\"/hw2/cgiform-cpp.html\">C++ CGI Form</a><br />\n";
+    std::cout << "<form style=\"margin-top:30px\" action=\"/hw2/destroy-session-cpp.cgi\" method=\"get\">\n";
     std::cout << "<button type=\"submit\">Destroy Session</button>\n";
     std::cout << "</form>\n";
 
