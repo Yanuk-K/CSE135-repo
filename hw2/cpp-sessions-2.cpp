@@ -90,7 +90,7 @@ int main() {
     }
     std::cout << "<br/><br/>\n";
     std::cout << "<a href=\"/hw2/cpp-sessions-1.cgi\">Session Page 1</a><br/>\n";
-    std::cout << "<a href=\"/cpp-cgiform.html\">C++ CGI Form</a><br />\n";
+    std::cout << "<a href=\"/hw2/cpp-cgiform.html\">C++ CGI Form</a><br />\n";
     std::cout << "<form style=\"margin-top:30px\" action=\"/hw2/cpp-destroy-session.cgi\" method=\"get\">\n";
     std::cout << "<button type=\"submit\">Destroy Session</button>\n";
     std::cout << "</form>\n";

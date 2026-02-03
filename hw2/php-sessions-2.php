@@ -23,7 +23,7 @@ $name = $_SESSION["username"] ?? "";
 
     <br/><br/>
     <a href="/hw2/php-sessions-1.php">Session Page 1</a><br/>
-    <a href="/php-cgiform.html">PHP CGI Form</a><br />
+    <a href="/hw2/php-cgiform.html">PHP CGI Form</a><br />
     <form style="margin-top:30px" action="/hw2/php-destroy-session.php" method="get">
         <button type="submit">Destroy Session</button>
     </form>
