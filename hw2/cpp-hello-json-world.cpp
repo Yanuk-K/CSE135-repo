@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cstdio>
 
 int main()
 {
@@ -10,7 +11,13 @@ int main()
 
     // Time
     std::time_t now = std::time(nullptr);
-    char *timeStr = std::ctime(&now);
+    char timeStr[64];
+    std::tm *timeInfo = std::localtime(&now);
+    if (timeInfo) {
+        std::strftime(timeStr, sizeof(timeStr), "%a %b %d %H:%M:%S %Y", timeInfo);
+    } else {
+        std::snprintf(timeStr, sizeof(timeStr), "Unknown");
+    }
 
     // IP address
     const char *ip = std::getenv("REMOTE_ADDR");
