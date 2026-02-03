@@ -120,11 +120,21 @@
       return payload;
     }
 
+    function updateFormAttributes() {
+      const endpoint = endpoints[languageSelect.value];
+      const method = methodSelect.value;
+      const encoding = encodingSelect.value;
+      form.action = endpoint;
+      form.method = method.toLowerCase();
+      form.enctype = encoding;
+    }
+
     function buildPreview() {
       const endpoint = endpoints[languageSelect.value];
       const method = methodSelect.value;
       const encoding = encodingSelect.value;
       const payload = serializeFormData();
+      updateFormAttributes();
       const bodyPreview = encoding === "application/json"
         ? JSON.stringify(payload, null, 2)
         : new URLSearchParams(payload).toString();
@@ -145,6 +155,7 @@
       const method = methodSelect.value;
       const encoding = encodingSelect.value;
       const payload = serializeFormData();
+      updateFormAttributes();
 
       let url = endpoint;
       let body;
