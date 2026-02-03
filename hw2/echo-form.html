@@ -8,7 +8,7 @@
 <body>
   <h1>Echo Form Test</h1>
 
-  <form id="echo-form" action="/hw2/python-general-echo.py" method="post">
+  <form id="echo-form" action="/hw2/python-general-echo.py" method="post" enctype="application/x-www-form-urlencoded">
     <label>
       Language endpoint
       <select id="language">
@@ -47,30 +47,21 @@
     <br>
 
     <label>
-      Name
-      <input type="text" name="name" value="Echo Explorer" required>
+      Field 1
+      <input type="text" name="field1" value="Hello" required>
     </label>
     <br>
     <label>
-      Message
-      <textarea name="message">Testing echo response</textarea>
+      Field 2
+      <input type="text" name="field2" value="World">
     </label>
     <br>
     <label>
-      Session
-      <input type="text" name="session" value="lab-135">
+      Field 3
+      <input type="text" name="field3" value="CSE135">
     </label>
     <br>
-    <label>
-      Mood
-      <select name="mood">
-        <option>curious</option>
-        <option>focused</option>
-        <option>sleepy</option>
-        <option>chaotic</option>
-      </select>
-    </label>
-    <br><br>
+    <br>
 
     <button type="submit">Send</button>
   </form>
@@ -81,6 +72,57 @@
   <h2>Response</h2>
   <pre id="response-output">(response will appear here)</pre>
 
+
+  <h2>Non-JS Version (manual submit)</h2>
+  <p>Use this when JavaScript is off. Supports GET/POST with x-www-form-urlencoded only.</p>
+
+  <form id="nojs-form" action="/hw2/python-general-echo.py" method="post" enctype="application/x-www-form-urlencoded" target="nojs-response">
+    <label>
+      Language endpoint
+      <select id="nojs-endpoint" name="endpoint">
+        <option value="/hw2/perl-general-echo.pl">Perl (perl-general-echo.pl)</option>
+        <option value="/hw2/perl-get-echo.pl">Perl (perl-get-echo.pl)</option>
+        <option value="/hw2/perl-post-echo.pl">Perl (perl-post-echo.pl)</option>
+        <option value="/hw2/python-general-echo.py">Python (python-general-echo.py)</option>
+        <option value="/hw2/python-get-echo.py">Python (python-get-echo.py)</option>
+        <option value="/hw2/python-post-echo.py">Python (python-post-echo.py)</option>
+        <option value="/hw2/php-general-echo.php">PHP (php-general-echo.php)</option>
+        <option value="/hw2/php-get-echo.php">PHP (php-get-echo.php)</option>
+        <option value="/hw2/php-post-echo.php">PHP (php-post-echo.php)</option>
+        <option value="/hw2/general-echo-cpp.cgi">C++ (general-echo-cpp.cgi)</option>
+        <option value="/hw2/get-echo-cpp.cgi">C++ (get-echo-cpp.cgi)</option>
+        <option value="/hw2/post-echo-cpp.cgi">C++ (post-echo-cpp.cgi)</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      Method
+      <select id="nojs-method" name="__method">
+        <option>GET</option>
+        <option>POST</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      Field 1
+      <input type="text" name="field1" value="Hello">
+    </label>
+    <br>
+    <label>
+      Field 2
+      <input type="text" name="field2" value="World">
+    </label>
+    <br>
+    <label>
+      Field 3
+      <input type="text" name="field3" value="CSE135">
+    </label>
+    <br><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <p>Non-JS responses will load in this tab after submit.</p>
+
   <script>
     const form = document.getElementById("echo-form");
     const languageSelect = document.getElementById("language");
@@ -88,6 +130,9 @@
     const encodingSelect = document.getElementById("encoding");
     const requestPreview = document.getElementById("request-preview");
     const responseOutput = document.getElementById("response-output");
+    const noJsForm = document.getElementById("nojs-form");
+    const noJsEndpoint = document.getElementById("nojs-endpoint");
+    const noJsMethod = document.getElementById("nojs-method");
 
     const endpoints = {
       perl: "/hw2/perl-general-echo.pl",
@@ -124,6 +169,12 @@
       form.action = endpoint;
       form.method = method.toLowerCase();
       form.enctype = encoding;
+    }
+
+    function updateNoJsFormAttributes() {
+      if (!noJsForm) return;
+      noJsForm.action = noJsEndpoint.value;
+      noJsForm.method = noJsMethod.value.toLowerCase();
     }
 
     function buildPreview() {
@@ -182,6 +233,7 @@
         });
         const text = await response.text();
         responseOutput.textContent = text;
+
       } catch (error) {
         responseOutput.textContent = `Request failed: ${error}`;
       }
@@ -192,7 +244,12 @@
     });
 
     buildPreview();
+    updateNoJsFormAttributes();
     form.addEventListener("submit", submitRequest);
+    if (noJsEndpoint && noJsMethod) {
+      noJsEndpoint.addEventListener("change", updateNoJsFormAttributes);
+      noJsMethod.addEventListener("change", updateNoJsFormAttributes);
+    }
   </script>
 </body>
 </html>
