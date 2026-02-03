@@ -16,9 +16,17 @@ def load_cookies():
     return jar
 
 
-def get_query_param(name):
-    query = os.environ.get("QUERY_STRING", "")
-    params = parse_qs(query, keep_blank_values=True)
+def get_param(name):
+    method = os.environ.get("REQUEST_METHOD", "").upper()
+    if method == "POST":
+        length = int(os.environ.get("CONTENT_LENGTH", "0") or "0")
+        body = ""
+        if length > 0:
+            body = os.read(0, length).decode("utf-8", "ignore")
+        params = parse_qs(body, keep_blank_values=True)
+    else:
+        query = os.environ.get("QUERY_STRING", "")
+        params = parse_qs(query, keep_blank_values=True)
     values = params.get(name)
     if not values:
         return ""
@@ -50,7 +58,7 @@ sid_value = sid.value if sid else ""
 if not sid_value:
     sid_value = uuid.uuid4().hex
 
-name = get_query_param("username")
+name = get_param("username")
 if name:
     write_session_value(sid_value, name)
 else:

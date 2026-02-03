@@ -43,7 +43,11 @@ std::unordered_map<std::string, std::string> parse_cookies() {
     if (!raw) {
         return {};
     }
-    return parse_pairs(raw, ';');
+    auto parsed = parse_pairs(raw, ';');
+    for (auto &item : parsed) {
+        item.second = trim(item.second);
+    }
+    return parsed;
 }
 
 void delete_session_value(const std::string &sid) {

@@ -66,12 +66,36 @@ std::unordered_map<std::string, std::string> parse_query() {
     return parse_pairs(raw, '&');
 }
 
+std::unordered_map<std::string, std::string> parse_post() {
+    const char *method = std::getenv("REQUEST_METHOD");
+    if (!method || std::string(method) != "POST") {
+        return {};
+    }
+    const char *length = std::getenv("CONTENT_LENGTH");
+    int len = length ? std::atoi(length) : 0;
+    if (len <= 0) {
+        return {};
+    }
+    std::string body;
+    body.reserve(static_cast<size_t>(len));
+    for (int i = 0; i < len; i++) {
+        char c;
+        std::cin.get(c);
+        body.push_back(c);
+    }
+    return parse_pairs(body, '&');
+}
+
 std::unordered_map<std::string, std::string> parse_cookies() {
     const char *raw = std::getenv("HTTP_COOKIE");
     if (!raw) {
         return {};
     }
-    return parse_pairs(raw, ';');
+    auto parsed = parse_pairs(raw, ';');
+    for (auto &item : parsed) {
+        item.second = trim(item.second);
+    }
+    return parsed;
 }
 
 std::string generate_session_id() {
@@ -113,6 +137,7 @@ void write_session_value(const std::string &sid, const std::string &value) {
 
 int main() {
     auto query = parse_query();
+    auto post = parse_post();
     auto cookies = parse_cookies();
 
     std::string sid;
@@ -126,11 +151,18 @@ int main() {
     }
 
     std::string name;
-    auto name_it = query.find("username");
-    if (name_it != query.end() && !name_it->second.empty()) {
+    auto name_it = post.find("username");
+    if (name_it != post.end() && !name_it->second.empty()) {
         name = name_it->second;
         write_session_value(sid, name);
     } else {
+        name_it = query.find("username");
+        if (name_it != query.end() && !name_it->second.empty()) {
+            name = name_it->second;
+            write_session_value(sid, name);
+        }
+    }
+    if (name.empty()) {
         name = read_session_value(sid);
     }
 
