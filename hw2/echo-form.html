@@ -176,7 +176,8 @@
         body = undefined;
       }
 
-      responseOutput.textContent = "Sending request...";
+      try {
+        responseOutput.textContent = "Sending request...";
         const response = await fetch(url, {
           method,
           headers,
@@ -184,8 +185,19 @@
         });
         const text = await response.text();
         responseOutput.textContent = text;
-        const bodyMatch = text.match(/Message Body:<\\/b>\\s*([^<]*)/i);
-        messageBodyOutput.textContent = bodyMatch ? bodyMatch[1] : "(message body not found in response)";
+        const marker = "Message Body:</b>";
+        const index = text.indexOf(marker);
+        if (index !== -1) {
+          const rest = text.slice(index + marker.length);
+          const bodyOnly = rest.split("<")[0].trim();
+          messageBodyOutput.textContent = bodyOnly || "(empty message body)";
+        } else {
+          messageBodyOutput.textContent = "(message body not found in response)";
+        }
+      } catch (error) {
+        responseOutput.textContent = `Request failed: ${error}`;
+        messageBodyOutput.textContent = "(message body unavailable)";
+      }
     }
 
     [languageSelect, methodSelect, encodingSelect].forEach((select) => {
